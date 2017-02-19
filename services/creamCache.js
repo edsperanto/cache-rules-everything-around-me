@@ -3,9 +3,6 @@ const client = redis.createClient();
 
 module.exports = (() => {
 
-	function cache() {
-	}
-
 	function init() {
 		return (req, res, next) => {
 			client.get(req.originalUrl, (err, reply) => {
