@@ -8,17 +8,14 @@ module.exports = (() => {
 
 	function init() {
 		return (req, res, next) => {
-			client.get(req.path, (err, reply) => {
+			client.get(req.originalUrl, (err, reply) => {
 				if(reply !== null) {
 					res.send(reply);
 				}else{
-					let _render = res.render;
-					res.render = function(view, options, cb) {
-						console.log(view);
-						_render.call(this, view, options, (err, data) => {
-							client.set(req.path, data);
-							_render.call(this, view, options, cb);
-						});
+					let _send = res.send;
+					res.send = function(data) {
+						client.setex(req.originalUrl, 60, data);
+						_send.call(this, data);
 					}
 					next();
 				}
