@@ -8,7 +8,6 @@ const creamCache = require('./services/creamCache');
 const { slow } = require('./routes');
 
 const app = express();
-const PORT = 8080;
 
 app.engine('.hbs', handlebars({extname: '.hbs', defaultLayout: 'main'}));
 app.set('view engine', '.hbs');
@@ -21,6 +20,4 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.listen(PORT, () => {
-  process.stdout.write(`server listening on port ${PORT}`);
-});
+module.exports = app;

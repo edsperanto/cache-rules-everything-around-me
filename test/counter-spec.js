@@ -10,3 +10,14 @@ describe('sanity', () => {
 	});
 });
 
+describe('cache rulz', () => {
+	describe('GET /', () => {
+		it('should load', done => {
+			agent.get('/')
+				.end((err, res) => {
+					if(err) throw err;
+					done();
+				});
+		});
+	});
+});
