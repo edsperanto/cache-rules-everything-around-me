@@ -3,11 +3,15 @@ const should = chai.should();
 const server = require('../server');
 const supertest = require('supertest');
 const agent = supertest.agent(server);
+const redis = require('redis');
+const client = redis.createClient();
 
 var timer;
 var secs1 = 0;
 var secs2 = 0;
 var toggle = true;
+
+client.del('/slow');
 
 describe('sanity', () => {
 	it('should be true', () => {
